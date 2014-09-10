@@ -1,0 +1,61 @@
+{
+    "folders":
+    [
+        {
+            "path": "src",
+            "name": "Source",
+            "file_exclude_patterns": ["*.o"]
+        },
+        {
+            "path": "include",
+            "name": "Headers"
+        },
+        {
+            "path": "tests",
+            "name": "Tests",
+            "file_exclude_patterns": ["*.o"]
+        },
+        {
+            "path": "data",
+            "name": "Data"
+        },
+        {
+            "path": ".",
+            "name": "Home",
+            "folder_exclude_patterns": ["src", "include", "tests", "data"]
+        }
+    ],
+    "settings":
+    {
+        "sublimegdb_workingdir": "${folder:${project_path:fek}}",
+        "sublimegdb_commandline": "gdb --interpreter=mi ./fek"
+    },
+    "build_systems":
+    [
+        {
+            "name": "Debug",
+            "cmd": ["scons"],
+            "working_dir": "${project_path}"
+        },
+        {
+            "name": "Tests",
+            "cmd": ["scons",  "tests=1"],
+            "working_dir": "${project_path}"
+        },
+        {
+            "name": "Release",
+            "cmd": ["scons",  "release=1"],
+            "working_dir": "${project_path}"
+        },
+        {
+            "name": "Clean",
+            "cmd": ["scons", "-c"],
+            "working_dir": "${project_path"
+        },
+        {
+            "name": "Run",
+            "cmd": ["./fek"],
+            "working_dir": "${project_path}"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+---
+Which: ITEM
+Properties:
+  - Name: name
+    Type: STRING
+    MainKey: yes
+    Default: ""
+  - Name: weight
+    Type: INT
+    Default: 0
+  - Name: edible
+    Type: BOOL
+    Default: false
+  - Name: nutrition
+    Type: INT
+    Default: 0
+  - Name: remaining
+    Type: INT
+    Default: 100
+...

@@ -1,0 +1,10 @@
+---
+name: fork
+weight: 10
+...
+---
+name: carrot
+weight: 9
+edible: true
+nutrition: 5
+...

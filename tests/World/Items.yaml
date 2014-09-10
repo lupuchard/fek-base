@@ -1,0 +1,11 @@
+---
+Base: fork
+...
+---
+Base: carrot
+...
+---
+Base: carrot
+Properties:
+  remaining: 50
+...

@@ -26,3 +26,16 @@
 *.exe
 *.out
 *.app
+fek
+
+# Dump
+DUMP/*
+
+# Logs
+*.log
+
+# Sublime
+*.sublime-workspace
+
+# Scons
+.sconsign.dblite
