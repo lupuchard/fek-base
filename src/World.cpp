@@ -1,20 +1,45 @@
 #include "World.h"
 
+#include "util/easylogging++.h"
+
 World::World(WorldSource& source): source(source) {
-	/*itemSystem.add("name"    , Type::STRING);
-	itemSystem.add("weight"  , Type::INT);
-	itemSystem.add("calories", Type::INT);
-
-	BaseThing iceCream = BaseThing(itemSystem);
-	iceCream.setValue("name", "Ice Cream");
-	iceCream.setValue("weight", 3);
-	iceCream.setValue("calories", 10);
-
-	Item* vanillaIceCream = new Item(iceCream);
-	items.emplace_back(vanillaIceCream);
-	vanillaIceCream->setValue("name", "Vanilla Ice Cream");
-
-	Item* dietIceCream = new Item(iceCream);
-	items.emplace_back(dietIceCream);
-	dietIceCream->setValue("calories", 8);*/
+	retrieveItems();
 }
+
+void World::update(float sec) {
+	secondsPassed += sec;
+	retrieveItems();
+}
+
+void World::retrieveItems() {
+	Item* item = source.getNewItem();
+	while(item) {
+		items.push_back(item);
+		if (item->where() == Item::COORD) {
+			exposedItems.push_back(item);
+		}
+		item = source.getNewItem();
+	}
+}
+
+World::ItemIter World::exposedItemsBegin() {
+	return ItemIter::begin(exposedItems);
+}
+World::ItemIter World::exposedItemsEnd() {
+	return ItemIter::end(exposedItems);
+}
+std::vector<Item*> World::getExposedItemsCopy() const {
+	return exposedItems;
+}
+
+/*size_t World::getNumExposedItems() const {
+	return exposedItems.size();
+}
+const Item& World::getExposedItem(size_t index) const {
+	DCHECK(index < exposedItems.size());
+	return *exposedItems[index];
+}
+Item& World::getExposedItem(size_t index) {
+	DCHECK(index < exposedItems.size());
+	return *exposedItems[index];
+}*/

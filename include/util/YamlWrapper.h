@@ -94,18 +94,19 @@ template<> inline bool YamlWrapper::read<bool>(std::string key, bool def, std::s
 
 // Some custom data type encoding and decoding
 namespace YAML {
-	template<> struct convert<Vec> {
-		static Node encode(const Vec& rhs) {
+	template<typename T> struct convert<Vector<T>> {
+		static Node encode(const Vector<T>& rhs) {
 			Node node;
 			node.push_back(rhs.x);
 			node.push_back(rhs.y);
 			return node;
 		}
-		static bool decode(const Node& node, Vec& rhs) {
+		static bool decode(const Node& node, Vector<T>& rhs) {
 			if (!node.IsSequence() || node.size() != 2) {
 				return false;
 			}
-			rhs = Vec(node[0].as<double>(), node[1].as<double>());
+			rhs.x = node[0].as<T>();
+			rhs.y = node[1].as<T>();
 			return true;
 		}
 	};

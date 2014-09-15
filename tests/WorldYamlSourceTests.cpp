@@ -16,7 +16,7 @@ TEST_CASE("WorldSource", "Yaml") {
 
 	REQUIRE(item2 != nullptr);
 	REQUIRE(item2->getValueT<String>("name")   == "carrot");
-	REQUIRE(item2->getValueT<bool>("edible") == true);
+	REQUIRE(item2->getPosition() == Coord(10, 20));
 
 	REQUIRE(item3 != nullptr);
 	REQUIRE(item3->getValueT<int>("nutrition") == 5);

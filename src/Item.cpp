@@ -13,7 +13,7 @@ Coord Item::getPosition() const {
 	return pos;
 }
 
-void Item::moveTo(Coord pos) {
+void Item::moveTo(Coord newPos) {
 	locationType = COORD;
-	pos = pos;
+	pos = newPos;
 }

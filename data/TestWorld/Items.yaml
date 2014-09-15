@@ -1,8 +1,10 @@
 ---
 Base: fork
+Location: [20, 20]
 ...
 ---
 Base: carrot
+Location: [10, 20]
 ...
 ---
 Base: carrot

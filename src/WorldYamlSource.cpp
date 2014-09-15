@@ -43,6 +43,7 @@ void WorldYamlSource::loadItems() {
 	for (size_t i = 0; i < nodes.size(); i++) {
 		YamlWrapper yaml(nodes[i]);
 
+		// read base
 		String baseName = yaml.read<String>("Base", "", "Item lacks a base.");
 		if (baseName == "") continue;
 		auto iter = itemBaseNameMap.find(baseName);
@@ -54,6 +55,11 @@ void WorldYamlSource::loadItems() {
 
 		items.emplace_back(new Item(base, items.size() + 1));
 		Item& item = *items.back();
+
+		// read location
+		if (yaml["Location"]->IsSequence()) {
+			item.moveTo(yaml.read<Coord>("Location", Coord()));
+		}
 
 		// read properties
 		YAML::Node propertiesNode = yaml["Properties"].getNode();

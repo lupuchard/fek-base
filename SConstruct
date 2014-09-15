@@ -17,4 +17,8 @@ if int(tests):
 else:
 	sources.append('main.cpp')
 
-env.Program('fek', sources, CPPPATH = ['include', 'include/util', 'tests'], LIBPATH = 'lib', LIBS = 'yaml-cpp')
+cpppath = ['include', 'include/util', 'tests']
+libs    = ['yaml-cpp', 'OgreMain', "boost_system"]
+libpath = ['lib']
+
+env.Program('fek', sources, CPPPATH = cpppath, LIBPATH = libpath, LIBS = libs)
