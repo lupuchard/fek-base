@@ -7,7 +7,9 @@
 
 class YamlWrapper {
 	public:
+		YamlWrapper();
 		YamlWrapper(YAML::Node);
+		void setNode(YAML::Node);
 
 		/** Returns this asset's yaml node. @{ */
 		YAML::Node& getNode();

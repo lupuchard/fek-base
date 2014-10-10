@@ -4,10 +4,7 @@
 #include <sstream>
 #include <cmath>
 
-/**
- * Basic 2D vector class so that stuff need not depend on SFML's vector class.
- * Plus this one is way better.
- */
+/** Basic 2D vector class so that stuff need not depend on IrrLicht's vector class. */
 template <typename N>
 class Vector {
 	public:
@@ -31,6 +28,15 @@ class Vector {
 		/** @return The unit vector facing the given angle. */
 		static Vector<N> withAngle(double angle) {
 			return Vector<N>(cos(angle), sin(angle));
+		}
+
+		template<class V>
+		static Vector<N> fromIrr(V vec) {
+			return Vector<N>(vec.X, vec.Y);
+		}
+		template<class D>
+		static Vector<N> fromIrrDim(D dim) {
+			return Vector<N>(dim.Width, dim.Height);
 		}
 
 
@@ -190,7 +196,7 @@ std::ostream& operator<<(std::ostream& os, const Vector<N>& obj) {
 }
 
 typedef Vector<double> Vec;
-typedef Vector<int> Coord;
+typedef Vector<int>  Coord;
 
 
 #endif // VEC_H

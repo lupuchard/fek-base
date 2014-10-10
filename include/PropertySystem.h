@@ -50,7 +50,7 @@ public:
 
 private:
 	std::vector<std::unique_ptr<Property>> properties;
-	std::map<std::string, size_t> nameToIndexMap;
+	std::unordered_map<std::string, size_t> nameToIndexMap;
 	Property* mainKey;
 };
 

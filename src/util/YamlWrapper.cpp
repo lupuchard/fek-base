@@ -2,7 +2,11 @@
 
 #include "easylogging++.h"
 
+YamlWrapper::YamlWrapper() {}
 YamlWrapper::YamlWrapper(YAML::Node node): node(node) { }
+void YamlWrapper::setNode(YAML::Node newNode) {
+	node = newNode;
+}
 
 YAML::Node& YamlWrapper::getNode() {
 	return node;

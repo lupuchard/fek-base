@@ -6,11 +6,10 @@
 
 typedef boost::variant<void*, bool, int, float, std::string> Variant;
 
-ENUM_BEGIN(Type, NONE, BOOL, INT, FLOAT, STRING);
+typedef std::tuple<void*, bool, int, float, std::string> TypeTuple;
+ENUM_BEGIN(Type,    NONE, BOOL, INT, FLOAT, STRING);
 
-/**
- * @return The default value a variable of the given type should have.
- */
+/** @return The default value a variable of the given type should have. */
 Variant getDefault();
 
 ENUM_END

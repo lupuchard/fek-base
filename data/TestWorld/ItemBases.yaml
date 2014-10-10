@@ -1,6 +1,7 @@
 ---
 name: fork
 weight: 10
+icon: {sheet = "test.png", index = 2}
 ...
 ---
 name: carrot

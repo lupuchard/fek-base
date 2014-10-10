@@ -1,6 +1,6 @@
 platform = ARGUMENTS.get('OS', Platform())
 
-env = Environment(CC = 'gcc', CCFLAGS = '-std=c++11 -Wall')
+env = Environment(CC = 'gcc', CCFLAGS = '-std=c++1y -Wall')
 
 sources = Glob('src/*.cpp')
 sources.extend(Glob('src/util/*.cpp'))
@@ -17,8 +17,12 @@ if int(tests):
 else:
 	sources.append('main.cpp')
 
-cpppath = ['include', 'include/util', 'tests']
-libs    = ['yaml-cpp', 'OgreMain', "boost_system"]
+cpppath = ['include', 'include/util', 'irrlicht', 'tests']
+libs    = ['yaml-cpp', 'Irrlicht', 'boost_system', 'boost_filesystem', 'GL']
 libpath = ['lib']
+
+if str(platform) == "posix":
+	libs.append('X11')
+	libs.append('Xxf86vm')
 
 env.Program('fek', sources, CPPPATH = cpppath, LIBPATH = libpath, LIBS = libs)

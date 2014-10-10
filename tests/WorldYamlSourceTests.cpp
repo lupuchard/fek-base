@@ -1,7 +1,7 @@
 #include "catch.hpp"
 #include "WorldYamlSource.h"
 
-TEST_CASE("WorldSource", "Yaml") {
+TEST_CASE("Basic test of WorldYamlSource", "[yaml][world]") {
 	WorldYamlSource source("tests/World/");
 
 	Item* item1 = source.getNewItem();

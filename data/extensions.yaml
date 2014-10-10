@@ -1,0 +1,31 @@
+NONE:
+  - txt
+YAML:
+  - yaml
+  - yml
+TEX:
+  - jpg
+  - png
+  - tga
+  - bmp
+  - pcx
+  - ppm
+  - psd
+  - wal
+  - rgb
+MESH:
+  - irr
+  - irrmesh
+  - 3ds
+  - obj
+  - lwo
+  - dae
+  - mesh
+  - my3D
+  - lmts
+  - bsp
+  - dmf
+  - oct
+  - csm
+  - stl
+  - ply

@@ -10,23 +10,24 @@ void Game::init() {
 	world.reset(new World(*worldSource));
 	renderer.reset(new Renderer(*world));
 
-	for (auto iter = world->exposedItemsBegin(); iter != world->exposedItemsEnd(); ++iter) {
-		std::cout << iter->getValueT<String>("name") << std::endl;
-	}
+	renderer->createWindow();
+
+	resources.reset(new ResourceManager("data/extensions.yaml"));
+	resources->scanResources("assets/");
 }
 void Game::execute() {
 	if (!inited) return;
 
 	while(true) {
 		Happen end = events();
-		if (end == Happen::YES) {
-			return;
-		}
+		if (end == Happen::YES) break;
 
-
+		end = renderer->update();
+		if (end == Happen::YES) break;
 	}
+	renderer->closeWindow();
 }
 
 Happen Game::events() {
-	return Happen::YES;
+	return Happen::NO;
 }

@@ -2,7 +2,6 @@
 #define THING_H
 
 #include "PropertySystem.h"
-
 #include <unordered_map>
 
 ENUM(ThingType, NONE, ITEM);
@@ -87,6 +86,7 @@ public:
 
 private:
 	const AbstractThing& base;
+
 	std::unordered_map<size_t, Variant> values;
 };
 

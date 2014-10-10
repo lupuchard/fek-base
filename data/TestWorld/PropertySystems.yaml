@@ -5,6 +5,9 @@ Properties:
     Type: STRING
     MainKey: yes
     Default: ""
+  - Name: icon
+    Type: icon
+    Default: nil
   - Name: weight
     Type: INT
     Default: 0

@@ -1,3 +1,6 @@
+#ifndef SMART_ITER_H
+#define SMART_ITER_H
+
 #include <type_traits>
 #include <iterator>
 
@@ -44,3 +47,5 @@ public:
 		return iter != rhs.iter;
 	}
 };
+
+#endif // SMART_ITER_H

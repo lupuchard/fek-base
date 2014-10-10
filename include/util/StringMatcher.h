@@ -1,7 +1,7 @@
 #ifndef STRINGMATCHER_H
 #define STRINGMATCHER_H
 
-#include <map>
+#include <unordered_map>
 #include <string>
 #include <cstddef>
 
@@ -46,7 +46,7 @@ class StringMatcher {
 		}
 
 	private:
-		std::map<std::string, I> strMap;
+		std::unordered_map<std::string, I> strMap;
 		I def;
 };
 

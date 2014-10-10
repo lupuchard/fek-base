@@ -1,7 +1,7 @@
 #include "catch.hpp"
 #include "PropertySystem.h"
 
-TEST_CASE("Property", "System") {
+TEST_CASE("Basic test of PropertySystem", "[properties]") {
 	PropertySystem sys;
 
 	sys.add("butts"   , Type::INT);

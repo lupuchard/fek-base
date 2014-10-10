@@ -2,20 +2,24 @@
 #define RENDERER_H
 
 #include "World.h"
-
-#include <OGRE/OgreRoot.h>
-#include <OGRE/OgreRenderWindow.h>
+#include <irrlicht/irrlicht.h>
 
 class Renderer {
 public:
 	Renderer(World& world);
+	Result createWindow();
+	Happen update();
+	void   closeWindow();
+
+	irr::IrrlichtDevice* getDevice();
 
 private:
 	World& world;
 
-	std::unique_ptr<Ogre::Root> root;
-	Ogre::RenderWindow* window;
-
+	irr::IrrlichtDevice*       device;
+	irr::video::IVideoDriver*  driver;
+	irr::scene::ISceneManager* scenes;
+	irr::gui::IGUIEnvironment* guiEnv;
 };
 
 #endif // RENDERER_H
