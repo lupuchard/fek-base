@@ -2,7 +2,7 @@
 #include "WorldYamlSource.h"
 
 TEST_CASE("Basic test of WorldYamlSource", "[yaml][world]") {
-	WorldYamlSource source("tests/World/");
+	WorldYamlSource source("packages/TestPackage/");
 
 	Item* item1 = source.getNewItem();
 	Item* item2 = source.getNewItem();

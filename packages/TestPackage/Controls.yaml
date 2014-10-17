@@ -1,0 +1,10 @@
+- Name: forward
+  Default: UP
+- Name: backward
+  Default: DOWN
+- Name: left
+  Default: LEFT
+- Name: right
+  Default: RIGHT
+- Name: action
+  Default: LBUTTON

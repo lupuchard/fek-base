@@ -1,10 +1,9 @@
 #include "IrrResource.h"
 
-#include <irrlicht/ITexture.h>
+#include <irrlicht/IrrlichtDevice.h>
+//#include <irrlicht/ITexture.h>
 
-TexRes::TexRes(): Resource() { }
-TexRes::TexRes(String filename, String nameID, size_t sessionID):
-		Resource(ResType::TEX, filename, nameID, sessionID) { }
+TexRes::TexRes(): Resource(ResType::TEX) { }
 
 void TexRes::load(irr::IrrlichtDevice* device) {
 	if (device) {

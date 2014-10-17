@@ -2,7 +2,9 @@
 #define ENUM_H
 
 #include "StringMatcher.h"
-#include <boost/preprocessor.hpp>
+#include <boost/preprocessor/variadic/to_list.hpp>
+#include <boost/preprocessor/list/size.hpp>
+#include <boost/preprocessor/list/for_each_i.hpp>
 
 /**
  * The best enums.
@@ -47,6 +49,5 @@
 // some standard useful enums
 enum class Result {SUCCESS, FAILURE};
 enum class Happen {NO, YES};
-
 
 #endif // ENUM_H

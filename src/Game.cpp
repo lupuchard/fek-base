@@ -13,7 +13,7 @@ void Game::init() {
 	renderer->createWindow();
 
 	resources.reset(new ResourceManager("data/extensions.yaml"));
-	resources->scanResources("assets/");
+	//resources->scanResources("assets/");
 }
 void Game::execute() {
 	if (!inited) return;

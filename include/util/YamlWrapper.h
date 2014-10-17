@@ -112,6 +112,24 @@ namespace YAML {
 			return true;
 		}
 	};
+	template<typename T> struct convert<Vector3<T>> {
+		static Node encode(const Vector3<T>& rhs) {
+			Node node;
+			node.push_back(rhs.x);
+			node.push_back(rhs.y);
+			node.push_back(rhs.z);
+			return node;
+		}
+		static bool decode(const Node& node, Vector3<T>& rhs) {
+			if (!node.IsSequence() || node.size() != 3) {
+				return false;
+			}
+			rhs.x = node[0].as<T>();
+			rhs.y = node[1].as<T>();
+			rhs.z = node[2].as<T>();
+			return true;
+		}
+	};
 }
 
 #endif // YAMLWRAPPER_H

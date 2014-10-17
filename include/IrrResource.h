@@ -3,7 +3,7 @@
 
 #include "Resource.h"
 
-irr { video { class ITexture; } }
+namespace irr { namespace video { class ITexture; } }
 
 /**
  * An Irrlicht texture resource.
@@ -11,7 +11,6 @@ irr { video { class ITexture; } }
 class TexRes: public Resource {
 public:
 	TexRes();
-	TexRes(String filename, String nameID, size_t sessionID);
 	void load(irr::IrrlichtDevice* device = nullptr) override;
 	irr::video::ITexture* getTexture();
 

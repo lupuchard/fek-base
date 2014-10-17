@@ -14,9 +14,7 @@ namespace irr {
 
 class Resource {
 public:
-	Resource();
-	Resource(String filename, String nameID, size_t sessionID);
-	Resource(ResType type, String filename, String nameID, size_t sessionID);
+	Resource(ResType type = ResType::NONE);
 
 	/** Parses the resource data. */
 	virtual void load(irr::IrrlichtDevice* device = nullptr) {}
@@ -24,11 +22,14 @@ public:
 	/** The type of resource. */
 	ResType getType() const;
 
-	/** The file this resource is found in. */
-	const std::string& getFilename() const;
+	/** @return The file this resource is found in. */
+	StringRef getFilename() const;
 
-	/** The simplified name you may refer to this resource with. */
-	const std::string& getNameID() const;
+	/** @return The unique simplified name you may refer to this resource with. */
+	StringRef getNameID() const;
+
+	/** @return The package this resource is a part of. */
+	StringRef getPackage() const;
 
 	/**
 	 * The id this resource has for this session.
@@ -41,9 +42,11 @@ public:
 	bool isLoaded() const;
 
 private:
+	friend class ResourceManager;
 	ResType type;
 	std::string filename;
 	std::string nameID;
+	std::string package;
 	size_t sessionID;
 	bool loaded = false;
 };
@@ -53,7 +56,6 @@ private:
 class YamlRes: public Resource {
 public:
 	YamlRes();
-	YamlRes(String filename, String nameID, size_t sessionID);
 	void load(irr::IrrlichtDevice* device = nullptr) override;
 	const YamlWrapper& getYaml() const;
 private:

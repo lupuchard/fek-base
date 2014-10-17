@@ -14,15 +14,21 @@ class ResourceManager {
 		ResourceManager(String extensionsFile);
 		void setDevice(irr::IrrlichtDevice* device);
 
+		/** Scans each subdirectory as a package. */
+		void scanPackages(String directory);
+
+		/** Scans a package directory. */
+		void scanPackage(String directory);
+
 		/** Scans a directory recursively for resources. */
-		void scanResources(String directory);
+		void scanResources(StringRef package, StringRef directory);
 
 		/**
 		 * Doesn't load the resource, instead it simply stores it's filenames
 		 * and assigns it a name ID and session ID so that you can get it
 		 * later with getResource or peekResource.
 		 */
-		void scanResource(String filename);
+		void scanResource(StringRef package, StringRef filename);
 
 
 		/**
@@ -32,8 +38,8 @@ class ResourceManager {
 		 */
 		template<ResType::Enum type>
 		auto* getResource(String name) {
-			std::string str = Str::simplify(name);
-			auto& map = std::get<type>(resourceMaps);
+			std::string str = Str::simplify(name, ':');
+			auto& map = std::get<type>(nameIDMaps);
 			auto iter = map.find(str);
 			if (iter != map.end()) {
 				return possiblyLoadResource(iter->second);
@@ -49,8 +55,8 @@ class ResourceManager {
 		 */
 		template<ResType::Enum type>
 		auto peekResource(String name) const {
-			auto& map = std::get<type>(resourceMaps);
-			auto iter = map.find(Str::simplify(name));
+			auto& map = std::get<type>(nameIDMaps);
+			auto iter = map.find(Str::simplify(name, ':'));
 			if (iter != map.end()) return iter->second;
 			return (decltype(iter->second))nullptr;
 		}
@@ -62,12 +68,13 @@ class ResourceManager {
 		 */
 		template<ResType::Enum type>
 		auto* getResource(size_t index) {
-			auto& vect = std::get<type>(resources);
-			if (index < vect.size()) {
-				return possiblyLoadResource(vect[index]);
+			auto& map = std::get<type>(sessionIDMaps);
+			auto iter = map.find(index);
+			if (iter != map.end()) {
+				return possiblyLoadResource(iter->second);
 			}
 			LOG(ERROR) << ResType(type).toString() << " resource " << index << " not found.";
-			return (decltype(vect[index]))nullptr;
+			return (decltype(iter->second))nullptr;
 		}
 
 		/**
@@ -77,31 +84,38 @@ class ResourceManager {
 		 */
 		template<ResType::Enum type>
 		const auto* peekResource(size_t index) const {
-			auto& vect = std::get<type>(resources);
-			if (index < vect.size()) return vect[index];
-			return (decltype(vect[index]))nullptr;
+			auto& map = std::get<type>(sessionIDMaps);
+			auto iter = map.find(index);
+			if (iter != map.end()) return iter->second;
+			return (decltype(iter->second))nullptr;
 		}
 
 	private:
 		template<class R>
 		R* possiblyLoadResource(R* res) {
-			if (!res->isLoaded()) {
+			if (!res->loaded) {
 				res->load(device);
+				res->loaded = true;
 			}
 			return res;
 		}
 
-		void add(ResType type, StringRef filename, StringRef nameID, IntConst<ResType::count()>);
+		void readExtraResourceData(StringRef package, const YamlWrapper& yaml);
+		void readExtraTextureData(StringRef package, YAML::Node& node);
+
+		void add(Resource& res, IntConst<ResType::count()>);
 		template<int resType>
-		void add(ResType type, StringRef filename, StringRef nameID, IntConst<resType>);
+		void add(Resource& res, IntConst<resType>);
 
 		std::map<String, ResType> extensionMap;
 		irr::IrrlichtDevice* device;
-
 		ContainerTupleT<std::vector, ContainerTupleT<std::unique_ptr, ResTuple>> resources;
 
+		template <class T> using IntMap = std::unordered_map<int, T>;
+		ContainerTupleT<IntMap, PointerTupleT<ResTuple>> sessionIDMaps;
+
 		template <class T> using StrMap = std::unordered_map<String, T>;
-		ContainerTupleT<StrMap, PointerTupleT<ResTuple>> resourceMaps;
+		ContainerTupleT<StrMap, PointerTupleT<ResTuple>> nameIDMaps;
 };
 
 #endif // RES_MANAGER_H

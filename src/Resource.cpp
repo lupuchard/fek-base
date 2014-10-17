@@ -1,10 +1,6 @@
 #include "Resource.h"
 
-Resource::Resource(): type(ResType::NONE), sessionID(0), loaded(false) { }
-Resource::Resource(String filename, String nameID, size_t sessionID): type(ResType::NONE),
-		filename(filename), nameID(nameID), sessionID(sessionID) { }
-Resource::Resource(ResType type, String filename, String nameID, size_t sessionID): type(type),
-		filename(filename), nameID(nameID), sessionID(sessionID) { }
+Resource::Resource(ResType type): type(type), sessionID(0), loaded(false) { }
 
 ResType Resource::getType() const {
 	return type;
@@ -18,14 +14,15 @@ StringRef Resource::getFilename() const {
 StringRef Resource::getNameID() const {
 	return nameID;
 }
+StringRef Resource::getPackage() const {
+	return package;
+}
 bool Resource::isLoaded() const {
 	return loaded;
 }
 
 
-YamlRes::YamlRes(): Resource() { }
-YamlRes::YamlRes(String filename, String nameID, size_t sessionID):
-		Resource(ResType::YAML, filename, nameID, sessionID) { }
+YamlRes::YamlRes(): Resource(ResType::YAML) { }
 
 void YamlRes::load(irr::IrrlichtDevice* device) {
 	yaml.setNode(YAML::LoadFile(getFilename()));

@@ -23,6 +23,8 @@ namespace Str {
 	 * Makes the remaining letters lowercase.
 	 */
 	String simplify(String str);
+	String simplify(String str, char keep);
+	String simplify(String str, String keep);
 }
 
 #endif // STRINGUTIL_H
